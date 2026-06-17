@@ -1,0 +1,28 @@
+{
+  "name": "guugo-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reusable AI agent skills for governed local workflows.",
+  "bin": {
+    "guugo-skills": "./scripts/install.js"
+  },
+  "files": [
+    "README.md",
+    "README.zh-CN.md",
+    ".gitignore",
+    "package.json",
+    "scripts/",
+    "skills/"
+  ],
+  "keywords": [
+    "ai-skills",
+    "agent-skills",
+    "codex",
+    "claude",
+    "workflow-governance"
+  ],
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  }
+}

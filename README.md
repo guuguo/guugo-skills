@@ -6,6 +6,10 @@
 </p>
 
 <p align="center">
+  <a href="./README.zh-CN.md">中文版 README</a>
+</p>
+
+<p align="center">
   <a href="#skills"><img alt="skills" src="https://img.shields.io/badge/skills-3-2F6F5E"></a>
   <a href="#repository-model"><img alt="layout" src="https://img.shields.io/badge/layout-source%20repo%20%2B%20symlinks-3B82F6"></a>
   <a href="#validation"><img alt="validation" src="https://img.shields.io/badge/validation-quick_validate%20%2B%20doctor-64748B"></a>
@@ -62,36 +66,47 @@ Then let agent clients point to `~/.agents/skills/`, not directly into this
 repository. That middle layer is intentional: it gives each client a stable
 consumer path while the source repository remains easy to update or replace.
 
-## Install
+## Quick Install
 
-Clone the repository into the default source location:
+Install or update with `npx`:
+
+```bash
+npx --yes github:guuguo/guugo-skills
+```
+
+The installer will:
+
+- sync this bundle into `~/.agents/sources/skills/guugo-skills`,
+- expose each skill through `~/.agents/skills/<skill-name>`,
+- repair Codex, Claude, Antigravity, and Qoderwork links for these skills only.
+
+For private repositories, make sure the local GitHub credentials used by npm/git
+can access `guuguo/guugo-skills`.
+
+Useful install options:
+
+```bash
+# Install into a custom source location
+GUUGO_SKILLS_SOURCE_DIR=/path/to/guugo-skills npx --yes github:guuguo/guugo-skills
+
+# Use a custom canonical skills directory
+GUUGO_SKILLS_CANONICAL_DIR=/path/to/skills npx --yes github:guuguo/guugo-skills
+
+# Repair only selected clients
+GUUGO_SKILLS_TARGETS=codex,claude npx --yes github:guuguo/guugo-skills
+
+# Skip client repair and only create canonical links
+GUUGO_SKILLS_SKIP_CLIENTS=1 npx --yes github:guuguo/guugo-skills
+```
+
+### Manual Fallback
+
+If `npx` is unavailable, clone the repository and run the installer directly:
 
 ```bash
 mkdir -p ~/.agents/sources/skills
 git clone https://github.com/guuguo/guugo-skills.git ~/.agents/sources/skills/guugo-skills
-```
-
-Create or repair canonical links:
-
-```bash
-mkdir -p ~/.agents/skills
-for skill in skills-governor ai-native-startup-playbook fact-driven-ai-methodology; do
-  dst="$HOME/.agents/skills/$skill"
-  src="../sources/skills/guugo-skills/skills/$skill"
-  if [ -e "$dst" ] && [ ! -L "$dst" ]; then
-    echo "skip $dst: existing real directory or file"
-    continue
-  fi
-  ln -sfn "$src" "$dst"
-done
-```
-
-Repair agent-specific consumers:
-
-```bash
-for target in codex claude antigravity qoderwork; do
-  python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target "$target" --fix
-done
+node ~/.agents/sources/skills/guugo-skills/scripts/install.js
 ```
 
 ## Custom Paths
@@ -122,6 +137,15 @@ SKILLS_GOVERNOR_SOURCE=/path/to/canonical/skills \
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex
 ```
 
+You can also inspect or repair a specific skill:
+
+```bash
+python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py \
+  --target codex \
+  --skill fact-driven-ai-methodology \
+  --fix
+```
+
 ## Validation
 
 Validate the skill folders:
@@ -138,11 +162,14 @@ Check consumer links:
 for target in codex claude antigravity qoderwork; do
   python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py \
     --target "$target" \
+    --skill skills-governor \
+    --skill ai-native-startup-playbook \
+    --skill fact-driven-ai-methodology \
     --only-problems
 done
 ```
 
-A healthy setup should report no problems for managed skills.
+A healthy setup should report no problems for these three managed skills.
 
 ## Design Rules
 

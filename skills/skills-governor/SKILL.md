@@ -118,6 +118,7 @@ The doctor defaults to `~/.agents/skills/`, but supports path overrides:
 ```bash
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --source /path/to/skills --target codex
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex --target-dir /path/to/codex/skills
+python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex --skill my-skill --fix
 SKILLS_GOVERNOR_SOURCE=/path/to/skills python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py
 ```
 

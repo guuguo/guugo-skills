@@ -42,9 +42,10 @@ def is_under(path: Path, parent: Path) -> bool:
     return True
 
 
-def inspect_target(name: str, target: Path, source: Path) -> dict:
-    skills = sorted(p for p in source.iterdir() if is_skill_dir(p))
-    managed_names = {p.name for p in skills}
+def inspect_target(name: str, target: Path, source: Path, selected_skills: set[str] | None = None) -> dict:
+    all_skills = sorted(p for p in source.iterdir() if is_skill_dir(p))
+    managed_names = {p.name for p in all_skills}
+    skills = [p for p in all_skills if selected_skills is None or p.name in selected_skills]
     source_resolved = source.resolve(strict=False)
     rows = []
     for src in skills:
@@ -69,7 +70,7 @@ def inspect_target(name: str, target: Path, source: Path) -> dict:
             row["status"] = "conflict"
         rows.append(row)
 
-    if target.exists():
+    if target.exists() and selected_skills is None:
         for entry in sorted(target.iterdir()):
             if entry.name in managed_names:
                 continue
@@ -96,6 +97,7 @@ def inspect_target(name: str, target: Path, source: Path) -> dict:
         "target_name": name,
         "target_dir": str(target),
         "source_dir": str(source),
+        "selected_skills": sorted(selected_skills) if selected_skills else None,
         "counts": counts,
         "skills": rows,
     }
@@ -138,6 +140,7 @@ def main() -> int:
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE, help="Canonical skill source directory.")
     parser.add_argument("--target", choices=sorted(DEFAULT_TARGETS), default="codex")
     parser.add_argument("--target-dir", type=Path, help="Override the selected target directory.")
+    parser.add_argument("--skill", action="append", help="Limit inspection or repair to one skill. Repeatable.")
     parser.add_argument("--fix", action="store_true", help="Create missing symlinks and replace broken symlinks.")
     parser.add_argument("--prune", action="store_true", help="Remove stale or orphaned symlinks from the target.")
     parser.add_argument("--only-problems", action="store_true", help="Only print non-linked rows.")
@@ -149,11 +152,22 @@ def main() -> int:
     if not source.exists():
         raise SystemExit(f"Missing source directory: {source}")
 
-    report = inspect_target(args.target, target, source)
+    selected_skills = set(args.skill) if args.skill else None
+    missing_selected = []
+    if selected_skills:
+        missing_selected = [
+            skill
+            for skill in sorted(selected_skills)
+            if not is_skill_dir(source / skill)
+        ]
+        if missing_selected:
+            raise SystemExit(f"Missing selected skills in {source}: {', '.join(missing_selected)}")
+
+    report = inspect_target(args.target, target, source, selected_skills)
     changes = fix_target(report) if args.fix else []
     prune_changes = prune_target(report) if args.prune else []
     if args.fix or args.prune:
-        report = inspect_target(args.target, target, source)
+        report = inspect_target(args.target, target, source, selected_skills)
         report["changes"] = changes + prune_changes
 
     if args.only_problems:
