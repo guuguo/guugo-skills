@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fact-Driven AI Methodology（事实驱动 AI 方法论）"
+  short_description: "Fact-based AI workflow methodology / 事实驱动方法论"
+  default_prompt: "Use $fact-driven-ai-methodology to rebuild an AI workflow methodology from confirmed facts and evidence（基于事实重建 AI 工作流方法论）."

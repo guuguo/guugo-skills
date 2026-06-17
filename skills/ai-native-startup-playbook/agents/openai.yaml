@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Native Startup Playbook"
+  short_description: "AI 原生创业阶段诊断与中文执行报告"
+  default_prompt: "Use $ai-native-startup-playbook 用中文诊断我的创业阶段，并产出下一步执行产物。"

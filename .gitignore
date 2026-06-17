@@ -1,0 +1,29 @@
+.DS_Store
+*.pyc
+__pycache__/
+.migration-backup/
+
+# Local environments and editor state
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs and local scratch files
+*.log
+tmp/
+scratch/
+work/
+
+# OS metadata
+Thumbs.db

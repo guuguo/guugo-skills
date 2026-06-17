@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skills Governor"
+  short_description: "Govern, sync, and repair local AI skills"
+  brand_color: "#2F6F5E"
+  default_prompt: "Use $skills-governor to inspect and repair Codex, Claude, Antigravity, or Qoderwork skill links."
+policy:
+  allow_implicit_invocation: true
