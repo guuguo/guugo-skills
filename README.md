@@ -38,6 +38,7 @@ Qoderwork consume the same skill definitions.
 | `skills-governor` | Inspect, sync, repair, and govern skills across agent-specific directories. | `scripts/skills_doctor.py` |
 | `ai-native-startup-playbook` | Diagnose startup stage and produce practical AI-native startup artifacts. | `references/stage-cards.md`, `references/artifact-templates.md` |
 | `fact-driven-ai-methodology` | Rebuild AI workflow methodologies from confirmed facts and evidence instead of drift-prone self-optimization. | bilingual UI metadata |
+| `child-psychology-for-content` | Guide AI animation / short video / picture-book content creation with Piaget, Vygotsky, Erikson, Bowlby, and Montessori. | Chinese, child-development reference |
 
 ## Repository Model
 
