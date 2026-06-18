@@ -28,8 +28,8 @@ The key idea is:
 source repository -> canonical skill links -> agent-specific skill directories
 ```
 
-This keeps updates centralized while letting Codex, Claude, Antigravity, and
-Qoderwork consume the same skill definitions.
+This keeps updates centralized while letting Codex, Claude, Antigravity,
+Qoderwork, and Hermes consume the same skill definitions.
 
 ## Skills
 
@@ -79,7 +79,8 @@ The installer will:
 
 - sync this bundle into `~/.agents/sources/skills/guugo-skills`,
 - expose each skill through `~/.agents/skills/<skill-name>`,
-- repair Codex, Claude, Antigravity, and Qoderwork links for these skills only.
+- repair Codex, Claude, Antigravity, Qoderwork, and Hermes links for these skills only.
+- skip a client when the corresponding application or known config marker is not detected.
 
 For private repositories, make sure the local GitHub credentials used by npm/git
 can access `guuguo/guugo-skills`.
@@ -94,7 +95,7 @@ GUUGO_SKILLS_SOURCE_DIR=/path/to/guugo-skills npx --yes github:guuguo/guugo-skil
 GUUGO_SKILLS_CANONICAL_DIR=/path/to/skills npx --yes github:guuguo/guugo-skills
 
 # Repair only selected clients
-GUUGO_SKILLS_TARGETS=codex,claude npx --yes github:guuguo/guugo-skills
+GUUGO_SKILLS_TARGETS=codex,claude,hermes npx --yes github:guuguo/guugo-skills
 
 # Skip client repair and only create canonical links
 GUUGO_SKILLS_SKIP_CLIENTS=1 npx --yes github:guuguo/guugo-skills
@@ -120,7 +121,13 @@ Codex skills:     ~/.codex/skills/
 Claude skills:    ~/.claude/skills/
 Antigravity:      ~/.gemini/antigravity/skills/
 Qoderwork:        ~/.qoderworkcn/skills/
+Hermes:           ~/.hermes/skills/
 ```
+
+Hermes skills are category-based. By default this repository links
+`skills-governor` and `ai-native-startup-playbook` under `devops`,
+`fact-driven-ai-methodology` under `software-development`, and unmapped skills
+under `imported`.
 
 `skills_doctor.py` can run against other layouts:
 
@@ -160,7 +167,7 @@ done
 Check consumer links:
 
 ```bash
-for target in codex claude antigravity qoderwork; do
+for target in codex claude antigravity qoderwork hermes; do
   python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py \
     --target "$target" \
     --skill skills-governor \

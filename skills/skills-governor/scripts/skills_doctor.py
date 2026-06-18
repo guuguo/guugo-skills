@@ -6,23 +6,56 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
+import shutil
 from pathlib import Path
 
 
 HOME = Path.home()
 DEFAULT_SOURCE = Path(os.environ.get("SKILLS_GOVERNOR_SOURCE", HOME / ".agents" / "skills")).expanduser()
 DEFAULT_TARGETS = {
-    "antigravity": Path(
-        os.environ.get(
-            "SKILLS_GOVERNOR_ANTIGRAVITY_DIR",
-            HOME / ".gemini" / "antigravity" / "skills",
-        )
-    ).expanduser(),
-    "codex": Path(os.environ.get("SKILLS_GOVERNOR_CODEX_DIR", HOME / ".codex" / "skills")).expanduser(),
-    "claude": Path(os.environ.get("SKILLS_GOVERNOR_CLAUDE_DIR", HOME / ".claude" / "skills")).expanduser(),
-    "qoderwork": Path(
-        os.environ.get("SKILLS_GOVERNOR_QODERWORK_DIR", HOME / ".qoderworkcn" / "skills")
-    ).expanduser(),
+    "antigravity": {
+        "dir": Path(
+            os.environ.get(
+                "SKILLS_GOVERNOR_ANTIGRAVITY_DIR",
+                HOME / ".gemini" / "antigravity" / "skills",
+            )
+        ).expanduser(),
+        "commands": [],
+        "markers": [HOME / ".gemini" / "antigravity"],
+    },
+    "codex": {
+        "dir": Path(os.environ.get("SKILLS_GOVERNOR_CODEX_DIR", HOME / ".codex" / "skills")).expanduser(),
+        "commands": ["codex"],
+        "markers": [HOME / ".codex"],
+    },
+    "claude": {
+        "dir": Path(os.environ.get("SKILLS_GOVERNOR_CLAUDE_DIR", HOME / ".claude" / "skills")).expanduser(),
+        "commands": ["claude"],
+        "markers": [HOME / ".claude"],
+    },
+    "hermes": {
+        "dir": Path(os.environ.get("SKILLS_GOVERNOR_HERMES_DIR", HOME / ".hermes" / "skills")).expanduser(),
+        "commands": ["hermes"],
+        "markers": [HOME / ".hermes", HOME / ".local" / "bin" / "hermes"],
+    },
+    "qoderwork": {
+        "dir": Path(
+            os.environ.get("SKILLS_GOVERNOR_QODERWORK_DIR", HOME / ".qoderworkcn" / "skills")
+        ).expanduser(),
+        "commands": [],
+        "markers": [
+            HOME / ".qoderworkcn",
+            HOME / "Library" / "Application Support" / "Qoder",
+            Path("/Applications/Qoder.app"),
+        ],
+    },
+}
+HERMES_DEFAULT_CATEGORIES = {
+    "ai-native-startup-playbook": "devops",
+    "child-psychology-for-content": "creative",
+    "fact-driven-ai-methodology": "software-development",
+    "skills-governor": "devops",
 }
 
 
@@ -42,6 +75,43 @@ def is_under(path: Path, parent: Path) -> bool:
     return True
 
 
+def env_name_for_skill(skill: str) -> str:
+    return re.sub(r"[^A-Z0-9]+", "_", skill.upper()).strip("_")
+
+
+def hermes_category_for_skill(skill: str) -> str:
+    env_key = f"SKILLS_GOVERNOR_HERMES_CATEGORY_{env_name_for_skill(skill)}"
+    return os.environ.get(env_key, HERMES_DEFAULT_CATEGORIES.get(skill, "imported"))
+
+
+def skill_target_path(target_name: str, target_root: Path, skill: str) -> Path:
+    if target_name == "hermes":
+        return target_root / hermes_category_for_skill(skill) / skill
+    return target_root / skill
+
+
+def count_statuses(rows: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        counts[row["status"]] = counts.get(row["status"], 0) + 1
+    return counts
+
+
+def inspect_client_presence(target_name: str, target: Path) -> dict:
+    config = DEFAULT_TARGETS[target_name]
+    commands = config["commands"]
+    markers = [Path(marker).expanduser() for marker in config["markers"]]
+    command_hits = {command: shutil.which(command) for command in commands}
+    marker_hits = {str(marker): marker.exists() for marker in markers}
+    available = any(command_hits.values()) or any(marker_hits.values())
+    return {
+        "available": available,
+        "commands": command_hits,
+        "markers": marker_hits,
+        "target_dir_exists": target.exists(),
+    }
+
+
 def inspect_target(name: str, target: Path, source: Path, selected_skills: set[str] | None = None) -> dict:
     all_skills = sorted(p for p in source.iterdir() if is_skill_dir(p))
     managed_names = {p.name for p in all_skills}
@@ -49,7 +119,7 @@ def inspect_target(name: str, target: Path, source: Path, selected_skills: set[s
     source_resolved = source.resolve(strict=False)
     rows = []
     for src in skills:
-        dst = target / src.name
+        dst = skill_target_path(name, target, src.name)
         row = {
             "skill": src.name,
             "source": str(src),
@@ -89,23 +159,26 @@ def inspect_target(name: str, target: Path, source: Path, selected_skills: set[s
                     }
                 )
 
-    counts: dict[str, int] = {}
-    for row in rows:
-        counts[row["status"]] = counts.get(row["status"], 0) + 1
-
     return {
         "target_name": name,
         "target_dir": str(target),
         "source_dir": str(source),
         "selected_skills": sorted(selected_skills) if selected_skills else None,
-        "counts": counts,
+        "counts": count_statuses(rows),
         "skills": rows,
     }
 
 
 def fix_target(report: dict) -> list[dict]:
+    if not report["client_presence"]["available"]:
+        for row in report["skills"]:
+            if row["status"] == "missing":
+                row["status"] = "skipped"
+                row["reason"] = "target-client-not-detected"
+        report["counts"] = count_statuses(report["skills"])
+        return []
+
     target = Path(report["target_dir"])
-    target.mkdir(parents=True, exist_ok=True)
     changes = []
     for row in report["skills"]:
         status = row["status"]
@@ -118,7 +191,8 @@ def fix_target(report: dict) -> list[dict]:
         if status == "broken-link":
             dst.unlink()
         if status in {"missing", "broken-link"}:
-            dst.symlink_to(rel_target(src, target))
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.symlink_to(rel_target(src, dst.parent))
             changes.append({"skill": src.name, "action": "linked", "target": str(dst)})
     return changes
 
@@ -147,7 +221,7 @@ def main() -> int:
     args = parser.parse_args()
 
     source = args.source.expanduser()
-    target = args.target_dir.expanduser() if args.target_dir else DEFAULT_TARGETS[args.target]
+    target = args.target_dir.expanduser() if args.target_dir else DEFAULT_TARGETS[args.target]["dir"]
 
     if not source.exists():
         raise SystemExit(f"Missing source directory: {source}")
@@ -164,10 +238,13 @@ def main() -> int:
             raise SystemExit(f"Missing selected skills in {source}: {', '.join(missing_selected)}")
 
     report = inspect_target(args.target, target, source, selected_skills)
+    report["client_presence"] = inspect_client_presence(args.target, target)
     changes = fix_target(report) if args.fix else []
     prune_changes = prune_target(report) if args.prune else []
     if args.fix or args.prune:
-        report = inspect_target(args.target, target, source, selected_skills)
+        if report["client_presence"]["available"]:
+            report = inspect_target(args.target, target, source, selected_skills)
+            report["client_presence"] = inspect_client_presence(args.target, target)
         report["changes"] = changes + prune_changes
 
     if args.only_problems:

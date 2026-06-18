@@ -19,6 +19,7 @@
     "agent-skills",
     "codex",
     "claude",
+    "hermes",
     "workflow-governance"
   ],
   "license": "UNLICENSED",

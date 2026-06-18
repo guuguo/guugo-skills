@@ -11,7 +11,7 @@ const SKILLS = [
   "fact-driven-ai-methodology",
 ];
 
-const DEFAULT_TARGETS = ["codex", "claude", "antigravity", "qoderwork"];
+const DEFAULT_TARGETS = ["codex", "claude", "antigravity", "qoderwork", "hermes"];
 
 const home = os.homedir();
 const packageRoot = path.resolve(__dirname, "..");
@@ -132,7 +132,17 @@ function repairClientTargets() {
       log(`client repair failed for ${target}: ${result.stderr || result.stdout}`.trim());
       continue;
     }
-    log(`repaired ${target} links`);
+    let report = null;
+    try {
+      report = JSON.parse(result.stdout);
+    } catch {
+      // Keep a simple success message if a future doctor output is not JSON.
+    }
+    if (report && report.client_presence && report.client_presence.available === false) {
+      log(`skipped ${target}; client not detected`);
+    } else {
+      log(`repaired ${target} links`);
+    }
   }
 }
 

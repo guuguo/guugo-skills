@@ -1,13 +1,13 @@
 ---
 name: skills-governor
-description: Use when installing, linking, syncing, auditing, repairing, replacing, or removing AI skills across ~/.agents/skills and agent-specific skill directories such as Codex, Claude, Gemini, Antigravity IDE, or Qoderwork.
+description: Use when installing, linking, syncing, auditing, repairing, replacing, or removing AI skills across ~/.agents/skills and agent-specific skill directories such as Codex, Claude, Gemini, Antigravity IDE, Qoderwork, or Hermes.
 ---
 
 # Skills Governor
 
 ## Core Rule
 
-Treat `~/.agents/skills/` as the default canonical skill source unless the user or environment provides a different source directory. Agent-specific skill directories such as `~/.codex/skills/`, `~/.claude/skills/`, `~/.gemini/antigravity/skills/`, and `~/.qoderworkcn/skills/` consume that source through symlinks unless the user explicitly asks for a copy or a product-owned system skill.
+Treat `~/.agents/skills/` as the default canonical skill source unless the user or environment provides a different source directory. Agent-specific skill directories such as `~/.codex/skills/`, `~/.claude/skills/`, `~/.gemini/antigravity/skills/`, `~/.qoderworkcn/skills/`, and `~/.hermes/skills/` consume that source through symlinks unless the user explicitly asks for a copy or a product-owned system skill.
 
 Default to global maintenance. If the user asks to install, link, sync, repair, replace, or make a skill available and does not explicitly restrict the target, audit and repair all global skill consumers:
 
@@ -15,14 +15,18 @@ Default to global maintenance. If the user asks to install, link, sync, repair, 
 - `claude`
 - `antigravity`
 - `qoderwork`
+- `hermes`
 
 Do not stop after the first mentioned or currently active agent. A task is complete only after the requested skill or skill set is verified across every in-scope consumer, with a short status matrix in the final response.
+
+Before creating links for any target, detect whether that client exists. If the client is not installed or no known client marker exists, skip that target and report it as `skipped`; do not create the target skill directory merely because a link task was requested.
 
 Use this skill for requests like:
 - "install this skill", "sync skills", "push/pull skills"
 - "link these skills to Codex", "link these skills to Claude"
 - "link these skills to Antigravity IDE"
 - "link these skills to Qoderwork"
+- "link these skills to Hermes"
 - "repair broken skill links", "remove old skills", "replace this skill"
 - "show me unmanaged skills", "doctor my skill setup", "clean stale links"
 - "set up project skills"
@@ -59,6 +63,8 @@ This skill should also trigger for the full lifecycle of MCP management:
 - Claude global skills: `~/.claude/skills/`
 - Antigravity IDE global skills: `~/.gemini/antigravity/skills/`
 - Qoderwork global skills: `~/.qoderworkcn/skills/`
+- Hermes global skills: `~/.hermes/skills/`
+- Hermes category defaults: `devops` for `skills-governor` and `ai-native-startup-playbook`; `software-development` for `fact-driven-ai-methodology`; `imported` for unmapped skills
 - Existing lock file: `~/.agents/.skill-lock.json`
 - Canonical MCP config repo: `~/mcp-config/`
 - Canonical MCP server manifests: `~/mcp-config/servers/`
@@ -99,7 +105,7 @@ Common operations:
 "$SM" link --project --agents codex --mode copy
 ```
 
-When a client target is not yet exposed by `skills-manager` (for example Antigravity IDE or Qoderwork global skills), use `skills_doctor.py` directly.
+When a client target is not yet exposed by `skills-manager` (for example Antigravity IDE, Qoderwork, or Hermes global skills), use `skills_doctor.py` directly.
 
 For Antigravity IDE, also verify that the client-side compatibility switch `chat.useClaudeSkills` is enabled in the user's IDE settings.
 
@@ -111,6 +117,7 @@ python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target antig
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex --fix
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target claude --fix --prune
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target qoderwork --fix
+python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target hermes --fix
 ```
 
 The doctor defaults to `~/.agents/skills/`, but supports path overrides:
@@ -119,13 +126,14 @@ The doctor defaults to `~/.agents/skills/`, but supports path overrides:
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --source /path/to/skills --target codex
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex --target-dir /path/to/codex/skills
 python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target codex --skill my-skill --fix
+SKILLS_GOVERNOR_HERMES_CATEGORY_MY_SKILL=devops python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target hermes --skill my-skill --fix
 SKILLS_GOVERNOR_SOURCE=/path/to/skills python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py
 ```
 
 For global skill sync or repair, run the full target loop unless the user explicitly scopes the request:
 
 ```bash
-for target in codex claude antigravity qoderwork; do
+for target in codex claude antigravity qoderwork hermes; do
   python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target "$target"
 done
 ```
@@ -133,7 +141,7 @@ done
 When fixing missing or broken links globally, run:
 
 ```bash
-for target in codex claude antigravity qoderwork; do
+for target in codex claude antigravity qoderwork hermes; do
   python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py --target "$target" --fix
 done
 ```
@@ -166,12 +174,12 @@ Use profile selection to keep the same server inventory but vary trust level:
 1. Identify whether the user wants installation, inventory, sync, link, repair, replacement, removal, or project setup.
 2. Resolve scope:
    - If the user names one target, such as "Codex only" or "link to Claude", operate only on that target.
-   - If the user says "everywhere", "global", "sync skills", "manage this skill", or does not name a target, scope is `codex`, `claude`, `antigravity`, and `qoderwork`.
+   - If the user says "everywhere", "global", "sync skills", "manage this skill", or does not name a target, scope is `codex`, `claude`, `antigravity`, `qoderwork`, and `hermes`.
    - If the user asks for project setup, scope is only the current project targets.
 3. Inspect all in-scope targets before changing state. Prefer `skills_doctor.py` for link status and conflict detection.
 4. Use `skills-manager` for GitHub-backed `pull`, `push`, and standard targets it supports.
-5. Use `skills_doctor.py --fix` for deterministic symlink creation or broken symlink replacement, especially for Antigravity IDE and Qoderwork.
-6. Use `skills_doctor.py --prune` when stale or orphaned links should be removed from Codex, Claude, Antigravity IDE, or Qoderwork.
+5. Use `skills_doctor.py --fix` for deterministic symlink creation or broken symlink replacement, especially for Antigravity IDE, Qoderwork, and Hermes.
+6. Use `skills_doctor.py --prune` when stale or orphaned links should be removed from Codex, Claude, Antigravity IDE, Qoderwork, or Hermes.
 7. Report the changed paths and any conflicts that were skipped.
 8. Verify all in-scope targets after fixes. For a named skill, confirm that exact skill is `linked` in every target. For a broad sync, confirm no `missing`, `broken`, or `conflict` statuses remain unless explicitly reported.
 9. For repository-level skill bundles, clone or update the upstream repository in `~/.agents/sources/skills/<repo-name>/`, then create or repair `~/.agents/skills/<skill-name>` symlinks to the real skill directories inside that clone.
@@ -266,8 +274,9 @@ If the user says any of these, switch into MCP management mode automatically:
 
 - Do not overwrite a real directory in an agent-specific skills folder without explicit user approval.
 - Do not delete user skills while repairing links.
+- Do not create links for a target until the corresponding client is detected. Report unavailable targets as `skipped`.
 - Prefer relative symlinks for global links.
-- When a skill exists in `~/.agents/skills/` but not in Codex, Claude, Antigravity IDE, or Qoderwork, link it rather than copying it.
+- When a skill exists in `~/.agents/skills/` but not in Codex, Claude, Antigravity IDE, Qoderwork, or Hermes, link it rather than copying it.
 - When a target has a real directory with the same name, report it as a conflict.
 - When pruning, remove only symlinks that are stale, broken, or no longer managed by `~/.agents/skills/`.
 - Do not hardcode server definitions in multiple agent configs when they can be generated from `~/mcp-config/`.

@@ -16,7 +16,7 @@
 
 ## 这个仓库解决什么
 
-`guugo-skills` 用一个版本化仓库维护一组高价值 AI 技能，并通过稳定的本地中转层分发给 Codex、Claude、Antigravity、Qoderwork 等客户端。
+`guugo-skills` 用一个版本化仓库维护一组高价值 AI 技能，并通过稳定的本地中转层分发给 Codex、Claude、Antigravity、Qoderwork、Hermes 等客户端。
 
 核心模型：
 
@@ -46,7 +46,8 @@ npx --yes github:guuguo/guugo-skills
 
 - 同步仓库到 `~/.agents/sources/skills/guugo-skills`
 - 在 `~/.agents/skills/<skill-name>` 创建三个技能的中转链接
-- 只针对这三个技能修复 Codex、Claude、Antigravity、Qoderwork 的客户端链接
+- 只针对这三个技能修复 Codex、Claude、Antigravity、Qoderwork、Hermes 的客户端链接
+- 如果对应客户端不存在，自动跳过，不会为了链接任务创建目标技能目录
 
 如果仓库是 private，需要确保本机 npm/git 使用的 GitHub 凭据能访问 `guuguo/guugo-skills`。
 
@@ -60,7 +61,7 @@ GUUGO_SKILLS_SOURCE_DIR=/path/to/guugo-skills npx --yes github:guuguo/guugo-skil
 GUUGO_SKILLS_CANONICAL_DIR=/path/to/skills npx --yes github:guuguo/guugo-skills
 
 # 只修复指定客户端
-GUUGO_SKILLS_TARGETS=codex,claude npx --yes github:guuguo/guugo-skills
+GUUGO_SKILLS_TARGETS=codex,claude,hermes npx --yes github:guuguo/guugo-skills
 
 # 只创建 ~/.agents/skills 中转链接，不修复客户端
 GUUGO_SKILLS_SKIP_CLIENTS=1 npx --yes github:guuguo/guugo-skills
@@ -111,7 +112,10 @@ Codex skills:     ~/.codex/skills/
 Claude skills:    ~/.claude/skills/
 Antigravity:      ~/.gemini/antigravity/skills/
 Qoderwork:        ~/.qoderworkcn/skills/
+Hermes:           ~/.hermes/skills/
 ```
+
+Hermes 的技能目录按品类组织。默认情况下，`skills-governor` 和 `ai-native-startup-playbook` 会链接到 `devops`，`fact-driven-ai-methodology` 会链接到 `software-development`，未配置映射的技能会链接到 `imported`。
 
 `skills_doctor.py` 支持自定义来源和目标：
 
@@ -144,7 +148,7 @@ done
 检查客户端链接：
 
 ```bash
-for target in codex claude antigravity qoderwork; do
+for target in codex claude antigravity qoderwork hermes; do
   python3 ~/.agents/skills/skills-governor/scripts/skills_doctor.py \
     --target "$target" \
     --skill skills-governor \
