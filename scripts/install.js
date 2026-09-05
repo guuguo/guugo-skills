@@ -6,6 +6,10 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const SKILLS = [
+  "gg-douyin-ai-video",
+  "ai-drama-review",
+  "ai-video-director-prompt",
+  "gg-character-card",
   "skills-governor",
   "ai-native-startup-playbook",
   "fact-driven-ai-methodology",

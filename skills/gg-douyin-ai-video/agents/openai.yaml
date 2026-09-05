@@ -1,0 +1,4 @@
+interface:
+  display_name: "抖音 AI 视频"
+  short_description: "从故事脚本、镜头提示词到生产复盘的抖音AI视频工作流"
+  default_prompt: "使用 $gg-douyin-ai-video，把这个想法整理成可生成、可剪辑的抖音AI视频脚本与镜头方案。"

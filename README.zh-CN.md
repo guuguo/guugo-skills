@@ -177,3 +177,14 @@ done
 - 基于事实的 AI 方法论重建
 
 仓库刻意保持小而清晰。新增技能前，需要先确认它有清楚的触发场景、可重复执行的工作流，以及足够值得沉淀的资源。
+
+## AI 视频创作技能统一维护
+
+四个技能统一以本仓库 `skills/` 下的文件为维护真源：
+
+- [gg-douyin-ai-video](skills/gg-douyin-ai-video/SKILL.md)
+- [ai-drama-review](skills/ai-drama-review/SKILL.md)
+- [ai-video-director-prompt](skills/ai-video-director-prompt/SKILL.md)
+- [gg-character-card](skills/gg-character-card/SKILL.md)
+
+全局入口 `~/.agents/skills/<技能名>` 和客户端均通过软链接读取同一份内容。旧来源路径仅保留兼容链接，迁移前原件（含导演技能 Git 历史）保存在 `.migration-backup/`，不再作为维护入口。安装器已包含以上四个技能。

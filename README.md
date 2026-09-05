@@ -198,3 +198,14 @@ This repository currently focuses on personal-to-general reusable workflows:
 It is intentionally small. New skills should be added only when they have a
 clear trigger, repeatable workflow, and enough reusable material to justify a
 dedicated skill folder.
+
+## Unified AI video skill maintenance
+
+These four skills are maintained together under this repository’s `skills/` directory:
+
+- [gg-douyin-ai-video](skills/gg-douyin-ai-video/SKILL.md)
+- [ai-drama-review](skills/ai-drama-review/SKILL.md)
+- [ai-video-director-prompt](skills/ai-video-director-prompt/SKILL.md)
+- [gg-character-card](skills/gg-character-card/SKILL.md)
+
+Canonical and client symlinks consume these same files. Former source paths are compatibility links; pre-migration originals, including the director skill Git history, are retained in `.migration-backup/`. The installer includes all four skills.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI短剧对白与节奏评审"
+  short_description: "统一评审脚本与提示词的对白密度、节奏疏密、细腻度与暧昧回合"
+  default_prompt: "使用 $ai-drama-review 对照认可样本，评审这个脚本与视频提示词的对白、节奏、细腻度和暧昧度，兼查超载与空等。"

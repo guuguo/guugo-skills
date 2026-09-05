@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI视频导演提示词"
+  short_description: "把脚本编译成景别、运镜、剪辑、守轴、表演与声音明确的逐镜提示词"
+  default_prompt: "请使用 $ai-video-director-prompt 把这段已确定的剧情编译为逐镜视频提示词，明确景别、机位运镜、硬切或快切、人物守轴、表演链与动作音效。"
