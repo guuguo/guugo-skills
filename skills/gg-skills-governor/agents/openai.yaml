@@ -1,0 +1,5 @@
+interface:
+  display_name: "Skills Governor"
+  short_description: "Govern AI skills, repositories, links, and MCPs"
+  brand_color: "#2F6F5E"
+  default_prompt: "Use $gg-skills-governor to audit and repair global skill and MCP state across my installed AI clients."

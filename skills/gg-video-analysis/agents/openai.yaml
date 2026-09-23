@@ -1,0 +1,6 @@
+interface:
+  display_name: "视频抽帧与 ASR 分析"
+  short_description: "自动处理视频分析需求，提取视听证据并分类内容、受众及情绪需求"
+  default_prompt: "使用 $gg-video-analysis 分析这个视频，提取视听证据并判断内容类型、核心受众和吸引点。"
+policy:
+  allow_implicit_invocation: true

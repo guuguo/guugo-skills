@@ -1,0 +1,29 @@
+{
+  "unit_tests": "11/11 passed",
+  "behavior_search": {
+    "total": 0,
+    "results": []
+  },
+  "index_has_action": false,
+  "incomplete_bundle_validation": {
+    "valid": true,
+    "counts": {
+      "works": 1,
+      "episodes": 2,
+      "cases": 1,
+      "arcs": 0
+    }
+  },
+  "incomplete_bundle_search_count": 1,
+  "cutoff": {
+    "total": 16,
+    "returned": 15,
+    "last_id": "c15",
+    "returned_have_metrics": false
+  },
+  "higher_limit": {
+    "last_id": "c16",
+    "last_metrics": 1
+  },
+  "note": "保存前次执行输出摘要；合成记录只验证结构及召回，不代表真实媒体端到端分析。"
+}

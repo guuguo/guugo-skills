@@ -1,0 +1,6 @@
+interface:
+  display_name: "短剧桥段素材库"
+  short_description: "从可靠素材提取可用互动，形成有实质差异的具体灵感，由人组合定稿"
+  default_prompt: "使用 $gg-drama-library 结合素材库，为我的创作需求提供有依据、有不同互动和观看感受的灵感。"
+policy:
+  allow_implicit_invocation: true

@@ -6,13 +6,22 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const SKILLS = [
+  "gg-bilibili-publish",
+  "gg-drama-library",
+  "gg-video-analysis",
+  "huixiang-director",
+  "video-prompt-compiler",
   "gg-douyin-ai-video",
   "ai-drama-review",
   "ai-video-director-prompt",
   "gg-character-card",
-  "skills-governor",
-  "ai-native-startup-playbook",
-  "fact-driven-ai-methodology",
+  "gg-skills-governor",
+  "gg-ai-native-startup-playbook",
+  "gg-child-psychology-for-content",
+  "gg-fact-driven-ai-methodology",
+  "gg-harness",
+  "gg-clean-mac",
+  "guuguo-image-gen",
 ];
 
 const DEFAULT_TARGETS = ["codex", "claude", "antigravity", "qoderwork", "hermes"];
@@ -20,7 +29,7 @@ const DEFAULT_TARGETS = ["codex", "claude", "antigravity", "qoderwork", "hermes"
 const home = os.homedir();
 const packageRoot = path.resolve(__dirname, "..");
 const sourceRoot = path.resolve(
-  process.env.GUUGO_SKILLS_SOURCE_DIR || path.join(home, ".agents", "sources", "skills", "guugo-skills"),
+  process.env.GUUGO_SKILLS_SOURCE_DIR || path.join(home, ".agents", "sources", "skills", "guuguo-skills"),
 );
 const canonicalRoot = path.resolve(
   process.env.GUUGO_SKILLS_CANONICAL_DIR || path.join(home, ".agents", "skills"),
@@ -32,7 +41,7 @@ const targets = (process.env.GUUGO_SKILLS_TARGETS || DEFAULT_TARGETS.join(","))
 const skipClients = process.env.GUUGO_SKILLS_SKIP_CLIENTS === "1";
 
 function log(message) {
-  console.log(`[guugo-skills] ${message}`);
+  console.log(`[guuguo-skills] ${message}`);
 }
 
 function pathStat(targetPath) {
@@ -112,7 +121,7 @@ function repairClientTargets() {
     return;
   }
 
-  const doctor = path.join(sourceRoot, "skills", "skills-governor", "scripts", "skills_doctor.py");
+  const doctor = path.join(sourceRoot, "skills", "gg-skills-governor", "scripts", "skills_doctor.py");
   if (!fs.existsSync(doctor)) {
     log(`skipped client repair; missing doctor: ${doctor}`);
     return;
@@ -161,6 +170,6 @@ function main() {
 try {
   main();
 } catch (error) {
-  console.error(`[guugo-skills] ${error.message}`);
+  console.error(`[guuguo-skills] ${error.message}`);
   process.exit(1);
 }

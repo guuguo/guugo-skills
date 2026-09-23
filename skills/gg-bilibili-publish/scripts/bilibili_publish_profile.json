@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "profile_revision": 51,
+  "last_evidence_update": "2026-09-20 调大 tag_event_gap_ms 至 300ms 解决快速键入丢失标签问题，升级 revision 51。",
+  "upload_url": "https://member.bilibili.com/platform/upload/video/frame",
+  "archive_url": "https://member.bilibili.com/platform/upload-manager/article",
+  "upload_input": "input[type=file][accept*=mp4]",
+  "selectors": {
+    "title": [
+      ".video-title input",
+      ".video-basic-title input",
+      "input[placeholder*=标题]"
+    ],
+    "description": [
+      ".ql-editor[contenteditable=true]",
+      ".video-desc .ql-editor",
+      "[contenteditable=true][data-placeholder*=简介]"
+    ],
+    "part_title": [
+      ".video-part-title input",
+      "input[placeholder*=分P标题]"
+    ],
+    "tag_input": [
+      "input[placeholder*=Enter创建标签]",
+      "input[placeholder*=创建标签]",
+      ".tag-input input"
+    ],
+    "visible_tags": [
+      ".label-item-v2-content"
+    ],
+    "tag_remove": [
+      ".label-item-v2-close",
+      ".close",
+      "[class*=close]"
+    ],
+    "season_trigger": [
+      ".video-season .season-enter",
+      ".video-season [class*=select]",
+      "[class*=season] [class*=enter]"
+    ],
+    "season_selected": [
+      ".season-enter-text",
+      "[role=combobox]",
+      ".select-controller",
+      "[class*=selected]"
+    ],
+    "partition_selected": [
+      "[role=combobox]",
+      ".select-controller",
+      "[class*=selected]"
+    ],
+    "cover_candidate": [
+      ".cover-ai-recommend .img-item-box"
+    ],
+    "cover_selected": [
+      ".img-item-cover-selected"
+    ],
+    "cover_main": [
+      ".cover-main .cover-item",
+      ".cover-main .cover-img",
+      ".cover-slot img:not(.add-icon)"
+    ],
+    "cover_missing": [
+      ".cover-empty.failed",
+      ".cover-empty"
+    ],
+    "charge_preview": [
+      "input[placeholder*=试看]",
+      "input[value^='00:00:']",
+      "[class*=preview] input",
+      "[class*=time] input"
+    ],
+    "submit": [
+      ".submit-add",
+      "button[class*=submit]"
+    ],
+    "draft_resume": [
+      ".tip-btn-group div:first-child",
+      ".draft-dialog [class*=resume]",
+      "[class*=draft-resume]"
+    ],
+    "draft_discard": [
+      ".tip-btn-group div:last-child",
+      ".draft-dialog [class*=discard]",
+      "[class*=draft-discard]"
+    ],
+    "upload_task": [
+      ".title-text[title^=\"bili-\"]"
+    ],
+    "form_item": [
+      ".form-item",
+      ".video-basic-item",
+      ".video-basic-row",
+      "[class*=form-item]"
+    ],
+    "popover": [
+      "[role=listbox]",
+      ".bcc-popover",
+      ".bili-popover",
+      "[class*=popover]",
+      "[class*=dropdown]"
+    ]
+  },
+  "semantic": {
+    "ai_declaration": "含AI生成内容",
+    "partition_label": "分区",
+    "partition_value": "娱乐",
+    "season_label": "加入合集",
+    "charge_settings": "充电设置",
+    "charge_enabled": "设为充电专属视频",
+    "charge_monthly": "包月付费",
+    "charge_tier": "30元档"
+  },
+  "fixed_tags": [
+    "双男主",
+    "纯爱",
+    "海边",
+    "生活流",
+    "双向奔赴",
+    "治愈系",
+    "原创小剧场",
+    "AI 生成"
+  ],
+  "season_map": {
+    "谢总别靠近": "谢总别靠近",
+    "别装了": "别装了",
+    "总裁": "发错给总裁",
+    "显眼包主线": "两个显眼包",
+    "显眼包碎片": "碎片显眼包"
+  },
+  "custom_cover_titles": [
+    "充电番外04｜承砚，我来接你回家",
+    "冷面总裁的偏爱藏不住了｜《发错给总裁》11–20集完整版"
+  ],
+  "timing": {
+    "ready_timeout_seconds": 25,
+    "editor_timeout_seconds": 60,
+    "batch_evaluate_timeout_seconds": 210,
+    "post_submit_focus_window_seconds": 12,
+    "archive_navigation_timeout_seconds": 60,
+    "archive_evaluate_timeout_seconds": 45,
+    "cover_ready_wait_seconds": 180,
+    "post_upload_settle_seconds": 2.5,
+    "post_upload_evaluate_attempts": 3,
+    "upload_progress_timeout_seconds": 45,
+    "upload_complete_timeout_seconds": 180,
+    "normal_sla_seconds": 60,
+    "attempt_failure_seconds": 300,
+    "external_grace_seconds": 180,
+    "slow_command_seconds": 10,
+    "tag_event_gap_ms": 300,
+    "tag_cleanup_passes": 4,
+    "tag_cleanup_settle_ms": 350,
+    "popover_wait_ms": 180
+  },
+  "recovery_order": [
+    "cover",
+    "title",
+    "description",
+    "ai_declaration",
+    "tags",
+    "season",
+    "partition",
+    "charge"
+  ]
+}

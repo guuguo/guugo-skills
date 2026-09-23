@@ -5,7 +5,7 @@ description: 评审 AI 短剧脚本及视频提示词的对白口语与密度、
 
 # AI 短剧对白与节奏评审
 
-统一承接原 ai-drama-delicacy 与 ai-ambiguity-drama-review。只有本入口维护评审流程，旧名称仅作兼容跳转。
+统一承接原 ai-drama-delicacy 与 ai-ambiguity-drama-review。只有本入口维护评审流程；两个旧技能已移除，统一使用 `$ai-drama-review`。
 
 目标是判断**观众是否持续获得可理解的推进和指定的情绪回报**，不是把对白越删越少，也不是把每秒塞满动作。细腻不等于慢，紧凑不等于高语速，多切镜不等于有节奏。
 

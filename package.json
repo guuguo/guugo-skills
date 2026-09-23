@@ -1,10 +1,10 @@
 {
-  "name": "guugo-skills",
-  "version": "0.1.0",
+  "name": "guuguo-skills",
+  "version": "0.2.0",
   "private": true,
   "description": "Reusable AI agent skills for governed local workflows.",
   "bin": {
-    "guugo-skills": "./scripts/install.js"
+    "guuguo-skills": "./scripts/install.js"
   },
   "files": [
     "README.md",

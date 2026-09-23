@@ -1,0 +1,4 @@
+interface:
+  display_name: "guuguo_image_gen 生图偏好"
+  short_description: "通用 AI 素材/设计图生成规范，按设计图或运行时素材分流引用；Codex 内用 $imagegen，外部客户端用 codex-guuguo 委托生成。"
+  default_prompt: "使用 guuguo_image_gen 偏好生成或处理游戏/视频/界面素材与设计图；实际生图必须走真实生图后端。Codex 内调用 $imagegen/image_gen；外部客户端或无 image_gen 时用 zsh -lic 'codex-guuguo exec ...' 委托 Codex 生成。按图片类型读取引用文档，参考图必须作为图像输入传入；生成后默认不看图验收。"

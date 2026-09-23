@@ -1,0 +1,6 @@
+interface:
+  display_name: "B站发布"
+  short_description: "在真实登录浏览器中向 B站投稿视频或专栏，并维护发布台账"
+  default_prompt: "使用 $gg-bilibili-publish 把当前成片发布到 B站，先查台账再投稿。"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mole Mac 清理诊断"
+  short_description: "以 Mole 为执行层，安全诊断与清理 macOS"
+  default_prompt: "Use $gg-clean-mac to diagnose and safely clean my Mac with Mole as the execution layer."

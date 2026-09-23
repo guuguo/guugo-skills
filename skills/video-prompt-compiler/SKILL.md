@@ -1,7 +1,6 @@
 ---
 name: video-prompt-compiler
 description: 通用 AI 短剧视频提示词与多平台适配编译器。将单集脚本、分镜表、角色大脸卡与声音样本编译为标准化的《视频生成清单.md》，包含通用视听动作链、精确的 @图片/@音频 资产映射，以及小云雀适配层（直接生成 CLI / 画布编排与项目画布维护）、即梦适配层和 LibTV 适配层。用户提到通用视频提示词、视频生成清单、小云雀视频生成、小云雀画布编排、编译分镜提示词时使用。
-user-invocable: true
 metadata:
   {"openclaw": {"emoji": "🎬", "requires": {"bins": ["python3", "node"]}}}
 ---

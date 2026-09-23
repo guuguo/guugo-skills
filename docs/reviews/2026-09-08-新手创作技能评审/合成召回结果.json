@@ -1,0 +1,309 @@
+{
+  "retrieval": "词项召回；需 Agent 读取完整案例并做适配比较",
+  "total": 3,
+  "results": [
+    {
+      "id": "first_meeting",
+      "work_id": "a_rescue",
+      "title": "【合成】河边搭救",
+      "status": "usable",
+      "path": "works/a_rescue/cases/first_meeting.json",
+      "tags": {
+        "genre": [
+          "乡村",
+          "双男主",
+          "初遇"
+        ]
+      },
+      "mechanism": {
+        "summary": "甲承担全部风险，乙只接受帮助。",
+        "essential_beats": [
+          "甲救下乙。",
+          "乙感谢甲。",
+          "甲承担全部风险，乙只接受帮助。"
+        ],
+        "replaceable_surface": [
+          "名字",
+          "道具"
+        ]
+      },
+      "audience": null,
+      "performance": [
+        {
+          "snapshot_path": "works/a_rescue/metrics/pub/s1.json",
+          "schema_version": 1,
+          "id": "s1",
+          "work_id": "a_rescue",
+          "publication_id": "pub",
+          "platform": "synthetic",
+          "source_url": "synthetic://not-real",
+          "captured_at": "2026-09-08T12:00:00+08:00",
+          "published_at": "2026-09-01T12:00:00+08:00",
+          "episode_ids": [
+            "e1"
+          ],
+          "metrics": {
+            "views": {
+              "value": 2000000,
+              "raw": "2000000",
+              "unit": "count",
+              "status": "available",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "likes": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "comments": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "favorites": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "shares": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            }
+          },
+          "evidence_paths": [
+            "/var/folders/hm/9ftdjtcj0ln1m1f8x7n4zrkw0000gn/T/drama-novice-synthetic-_5h_s1wf/library/works/a_rescue/SYNTHETIC_NOT_MEDIA.txt"
+          ],
+          "synthetic": true
+        }
+      ],
+      "entry_state": "甲冒险跳水救乙；乙全程等救援。",
+      "exit_state": "甲承担全部风险，乙只接受帮助。",
+      "prerequisites": [
+        "初次见面"
+      ],
+      "incompatible": [],
+      "matched_terms": [
+        "乡村",
+        "双男主",
+        "初遇"
+      ],
+      "lexical_score": 3
+    },
+    {
+      "id": "first_meeting",
+      "work_id": "b_water",
+      "title": "【合成】争水到轮灌",
+      "status": "usable",
+      "path": "works/b_water/cases/first_meeting.json",
+      "tags": {
+        "genre": [
+          "乡村",
+          "双男主",
+          "初遇"
+        ]
+      },
+      "mechanism": {
+        "summary": "甲接过钥匙却把自己的钥匙也放下，两人约好日落前回来换闸。",
+        "essential_beats": [
+          "甲把水闸向自己这边推；乙用树枝指出下游苗床。",
+          "乙提出两边各灌半小时；甲反问如何保证，乙把自己的车钥匙放在闸边。",
+          "甲接过钥匙却把自己的钥匙也放下，两人约好日落前回来换闸。"
+        ],
+        "replaceable_surface": [
+          "名字",
+          "道具"
+        ]
+      },
+      "audience": null,
+      "performance": [
+        {
+          "snapshot_path": "works/b_water/metrics/pub/s1.json",
+          "schema_version": 1,
+          "id": "s1",
+          "work_id": "b_water",
+          "publication_id": "pub",
+          "platform": "synthetic",
+          "source_url": "synthetic://not-real",
+          "captured_at": "2026-09-08T12:00:00+08:00",
+          "published_at": "2026-09-01T12:00:00+08:00",
+          "episode_ids": [
+            "e1"
+          ],
+          "metrics": {
+            "views": {
+              "value": 800000,
+              "raw": "800000",
+              "unit": "count",
+              "status": "available",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "likes": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "comments": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "favorites": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "shares": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            }
+          },
+          "evidence_paths": [
+            "/var/folders/hm/9ftdjtcj0ln1m1f8x7n4zrkw0000gn/T/drama-novice-synthetic-_5h_s1wf/library/works/b_water/SYNTHETIC_NOT_MEDIA.txt"
+          ],
+          "synthetic": true
+        }
+      ],
+      "entry_state": "甲要给新种的菜浇水；乙要保住下游幼苗，两人此前不认识。",
+      "exit_state": "甲接过钥匙却把自己的钥匙也放下，两人约好日落前回来换闸。",
+      "prerequisites": [
+        "初次见面"
+      ],
+      "incompatible": [],
+      "matched_terms": [
+        "乡村",
+        "双男主",
+        "初遇"
+      ],
+      "lexical_score": 3
+    },
+    {
+      "id": "first_meeting",
+      "work_id": "c_cart",
+      "title": "【合成】窄路错车",
+      "status": "usable",
+      "path": "works/c_cart/cases/first_meeting.json",
+      "tags": {
+        "genre": [
+          "乡村",
+          "双男主",
+          "初遇"
+        ]
+      },
+      "mechanism": {
+        "summary": "甲记住乙的名字，乙拒绝收钱，要求下次遇见甲先让。",
+        "essential_beats": [
+          "甲提出让乙倒车；乙展示后方陡坡，坚持就地抬车。",
+          "甲提出卸一筐，乙坚持一起搬；两人搬开车筐让出车道。",
+          "甲记住乙的名字，乙拒绝收钱，要求下次遇见甲先让。"
+        ],
+        "replaceable_surface": [
+          "名字",
+          "道具"
+        ]
+      },
+      "audience": null,
+      "performance": [
+        {
+          "snapshot_path": "works/c_cart/metrics/pub/s1.json",
+          "schema_version": 1,
+          "id": "s1",
+          "work_id": "c_cart",
+          "publication_id": "pub",
+          "platform": "synthetic",
+          "source_url": "synthetic://not-real",
+          "captured_at": "2026-09-08T12:00:00+08:00",
+          "published_at": "2026-09-01T12:00:00+08:00",
+          "episode_ids": [
+            "e1"
+          ],
+          "metrics": {
+            "views": {
+              "value": 500000,
+              "raw": "500000",
+              "unit": "count",
+              "status": "available",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "likes": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "comments": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "favorites": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            },
+            "shares": {
+              "value": null,
+              "raw": null,
+              "unit": "count",
+              "status": "unavailable",
+              "approximate": false,
+              "reason": "合成数据，其他指标未设置"
+            }
+          },
+          "evidence_paths": [
+            "/var/folders/hm/9ftdjtcj0ln1m1f8x7n4zrkw0000gn/T/drama-novice-synthetic-_5h_s1wf/library/works/c_cart/SYNTHETIC_NOT_MEDIA.txt"
+          ],
+          "synthetic": true
+        }
+      ],
+      "entry_state": "甲赶去交货；乙逆向拉空车去接家人。",
+      "exit_state": "甲记住乙的名字，乙拒绝收钱，要求下次遇见甲先让。",
+      "prerequisites": [
+        "初次见面"
+      ],
+      "incompatible": [],
+      "matched_terms": [
+        "乡村",
+        "双男主",
+        "初遇"
+      ],
+      "lexical_score": 3
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "gg-harness"
+  short_description: "轻量 Harness：证据驱动的最小需求闭环与验收"
+  default_prompt: "Use $gg-harness 帮我先明确不变项和证据，以最小复杂度梳理需求、验收、执行证据契约和 harness 版本升级。"
