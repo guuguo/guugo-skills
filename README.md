@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#skills"><img alt="skills" src="https://img.shields.io/badge/skills-16-2F6F5E"></a>
+  <a href="#skills"><img alt="skills" src="https://img.shields.io/badge/skills-17-2F6F5E"></a>
   <a href="#repository-model"><img alt="layout" src="https://img.shields.io/badge/layout-source%20repo%20%2B%20symlinks-3B82F6"></a>
   <a href="#validation"><img alt="validation" src="https://img.shields.io/badge/validation-quick_validate%20%2B%20doctor-64748B"></a>
 </p>
@@ -44,6 +44,7 @@ Qoderwork, and Hermes consume the same skill definitions.
 | `gg-video-analysis` | Analyze video content and audience evidence. | analysis workflow and scripts |
 | `huixiang-director` | Apply grounded, scene-led short-drama direction. | directing references |
 | `video-prompt-compiler` | Compile video prompts and platform-specific generation lists. | `SKILL.md` |
+| `video-subtitle-workflow` | Create, repair, render, and verify burned-in video subtitles. | OCR, resource preflight, and rendering scripts |
 | `gg-skills-governor` | Inspect, sync, repair, and govern skills across agent-specific directories. | `scripts/skills_doctor.py` |
 | `gg-ai-native-startup-playbook` | Diagnose startup stage and produce practical AI-native startup artifacts. | `references/stage-cards.md`, `references/artifact-templates.md` |
 | `gg-fact-driven-ai-methodology` | Rebuild AI workflow methodologies from confirmed facts and evidence instead of drift-prone self-optimization. | bilingual UI metadata |
@@ -203,6 +204,7 @@ for target in codex claude antigravity qoderwork hermes; do
     --skill gg-video-analysis \
     --skill huixiang-director \
     --skill video-prompt-compiler \
+    --skill video-subtitle-workflow \
     --skill gg-skills-governor \
     --skill gg-ai-native-startup-playbook \
     --skill gg-child-psychology-for-content \
@@ -214,7 +216,7 @@ for target in codex claude antigravity qoderwork hermes; do
 done
 ```
 
-A healthy setup should report no problems for these 16 managed skills.
+A healthy setup should report no problems for these 17 managed skills.
 
 ## Design Rules
 
@@ -253,7 +255,7 @@ Canonical and client symlinks consume these same files. Former source paths are 
 ## Drama reference and video evidence skills
 
 - [gg-drama-library](skills/gg-drama-library/SKILL.md): evidence-backed story beats, episode tracks, series arcs, and character-aware reference retrieval. Local storage is configured by `library_root` in `~/.config/gg-drama-library/config.json`.
-- [gg-video-analysis](skills/gg-video-analysis/SKILL.md): timestamped frames, paginated contact sheets, local ASR, and audiovisual evidence. Runtime configuration lives in `~/.config/gg-video-analysis/config.json`. Reuses the installed video-subtitle-workflow resource preflight; missing dependencies are reported explicitly.
+- [gg-video-analysis](skills/gg-video-analysis/SKILL.md): timestamped frames, paginated contact sheets, local ASR, and audiovisual evidence. Runtime configuration lives in `~/.config/gg-video-analysis/config.json`. Reuses the bundled video-subtitle-workflow resource preflight; missing dependencies are reported explicitly.
 - [gg-bilibili-publish](skills/gg-bilibili-publish/SKILL.md): Bilibili video/column publishing and the publish ledger. Runtime configuration lives in `~/.config/gg-bilibili-publish/config.json`. Ledgers and media stay in the project.
 
 These skills are maintained here and distributed by the installer. Media, publish records, and machine-specific configuration stay outside the repository.

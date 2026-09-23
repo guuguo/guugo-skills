@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频字幕制作"
+  short_description: "用资源门禁、ASR、OCR 与一次渲染完成视频字幕"
+  default_prompt: "使用 $video-subtitle-workflow 为这段视频制作或修复完整字幕，并完成质量验收。"

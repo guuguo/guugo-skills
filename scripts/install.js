@@ -11,6 +11,7 @@ const SKILLS = [
   "gg-video-analysis",
   "huixiang-director",
   "video-prompt-compiler",
+  "video-subtitle-workflow",
   "gg-douyin-ai-video",
   "ai-drama-review",
   "ai-video-director-prompt",

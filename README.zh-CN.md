@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="#技能列表"><img alt="skills" src="https://img.shields.io/badge/skills-16-2F6F5E"></a>
+  <a href="#技能列表"><img alt="skills" src="https://img.shields.io/badge/skills-17-2F6F5E"></a>
   <a href="#仓库模型"><img alt="layout" src="https://img.shields.io/badge/layout-source%20repo%20%2B%20symlinks-3B82F6"></a>
   <a href="#校验"><img alt="validation" src="https://img.shields.io/badge/validation-quick_validate%20%2B%20doctor-64748B"></a>
 </p>
@@ -39,6 +39,7 @@
 | `gg-video-analysis` | 分析视频内容和受众证据。 | 分析流程与脚本 |
 | `huixiang-director` | 应用生活流短剧导演方法。 | 导演参考 |
 | `video-prompt-compiler` | 编译视频提示词和平台生成清单。 | `SKILL.md` |
+| `video-subtitle-workflow` | 制作、修复、烧录与验收视频硬字幕。 | OCR、资源预检与渲染脚本 |
 | `gg-skills-governor` | 巡检、同步、修复和治理多客户端技能链接。 | `scripts/skills_doctor.py` |
 | `gg-ai-native-startup-playbook` | 诊断创业阶段，产出 AI 原生创业执行产物。 | `references/stage-cards.md`、`references/artifact-templates.md` |
 | `gg-child-psychology-for-content` | 用儿童心理学指导儿童内容、动画、绘本和教育产品创作。 | 中文儿童发展参考 |
@@ -58,8 +59,8 @@ npx --yes github:guuguo/guugo-skills
 安装器会自动完成：
 
 - 同步仓库到 `~/.agents/sources/skills/guuguo-skills`
-- 在 `~/.agents/skills/<skill-name>` 创建 16 个技能的中转链接
-- 只针对这 16 个技能修复 Codex、Claude、Antigravity、Qoderwork、Hermes 的客户端链接
+- 在 `~/.agents/skills/<skill-name>` 创建 17 个技能的中转链接
+- 只针对这 17 个技能修复 Codex、Claude、Antigravity、Qoderwork、Hermes 的客户端链接
 - 如果对应客户端不存在，自动跳过，不会为了链接任务创建目标技能目录
 
 如果仓库是 private，需要确保本机 npm/git 使用的 GitHub 凭据能访问 `guuguo/guugo-skills`。
@@ -184,6 +185,7 @@ for target in codex claude antigravity qoderwork hermes; do
     --skill gg-video-analysis \
     --skill huixiang-director \
     --skill video-prompt-compiler \
+    --skill video-subtitle-workflow \
     --skill gg-skills-governor \
     --skill gg-ai-native-startup-playbook \
     --skill gg-child-psychology-for-content \
@@ -195,7 +197,7 @@ for target in codex claude antigravity qoderwork hermes; do
 done
 ```
 
-健康状态下，这 16 个技能不应出现在问题列表中。
+健康状态下，这 17 个技能不应出现在问题列表中。
 
 ## 设计规则
 
@@ -231,7 +233,7 @@ done
 ## 短剧素材与视听分析
 
 - [gg-drama-library](skills/gg-drama-library/SKILL.md)：完整桥段、单集情绪、全剧递进与人物适配检索。本机素材目录由 `~/.config/gg-drama-library/config.json` 的 `library_root` 维护。
-- [gg-video-analysis](skills/gg-video-analysis/SKILL.md)：通用抽帧、分页接触表、本地 ASR 与视听观察证据。配置位于 `~/.config/gg-video-analysis/config.json`；复用已安装的 video-subtitle-workflow 资源预检脚本，缺失依赖时明确报告。
+- [gg-video-analysis](skills/gg-video-analysis/SKILL.md)：通用抽帧、分页接触表、本地 ASR 与视听观察证据。配置位于 `~/.config/gg-video-analysis/config.json`；复用同仓的 video-subtitle-workflow 资源预检脚本，缺失依赖时明确报告。
 - [gg-bilibili-publish](skills/gg-bilibili-publish/SKILL.md)：B站视频/专栏发布与台账。配置位于 `~/.config/gg-bilibili-publish/config.json`；台账和成片留在项目目录，不进技能仓库。
 
 由本仓库统一维护、安装器分发，原始素材、发布记录和运行配置保存在仓库外。
